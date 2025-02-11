@@ -1,1 +1,5 @@
+# Ignore all hidden files
+.*
+
+# Exception: Track the .settings directory
 !.settings
