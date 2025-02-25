@@ -1,0 +1,195 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+  }
+
+  header {
+    background-color:#0057b8; /* Matching the beige background */
+    color: #000; /* Use a dark font for better contrast */
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between; /* Space between logo and navigation */
+    align-items: center;
+  }
+    
+    
+    .header-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    
+    header img {
+      height: 50px;
+      margin-right: 1rem;
+    }
+  
+    .site-header .logo span {
+      font-size: 1.5em;
+      font-family: 'Brush Script MT', cursive;
+      font-weight: bold;
+      color: #120902;
+    }
+    
+    
+    header h1 {
+      font-family:'Arial',sans-serif;
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    
+    header nav {
+      display: flex;
+      gap: 2rem; /* Equal spacing between nav links */
+      margin-left: auto; /* Pushes the nav to the right */
+    }
+    
+    header nav a {
+      text-decoration: none;
+      color: rgb(255, 255, 255);
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    
+    
+    
+    .nav-menu ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .nav-menu ul li {
+      margin: 0 15px;
+    }
+    
+    .nav-menu ul li a {
+      color: rgb(255, 255, 255);
+      text-decoration: none;
+      font-size: 1.5em;
+      font-family: 'verdana', Courier;
+      transition: color 0.3s;
+    }
+    
+    .nav-menu ul li a:hover {
+      color: #000000;
+    }
+  
+  /* Slot Selection Styles */
+  .slots-container, .crew-confirmation, .customer-confirmation {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .slots-container h1, .crew-confirmation h1, .customer-confirmation h1 {
+    margin-bottom: 20px;
+  }
+  
+  .slot {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+  }
+  
+  .slot-btn {
+    padding: 8px 15px;
+    background-color:  rgb(0, 87, 184);
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .slot-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #approve-slot {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  #reject-slot {
+    background-color: #dc3545;
+    font-weight: bold;
+    color: white;
+    font-weight: bold;
+  }
+  
+  #home-button {
+    background-color:#0057b8;
+    font-weight: bold;
+    color: white;
+  }
+  
+  /* Hidden Elements */
+  .hidden {
+    display: none;
+  }
+
+  footer {
+    position: fixed; /* Or 'absolute' if you prefer */
+    bottom: 0;
+    left: 0;
+    width: 100%; 
+    background-color: #0057b8;/* Aqua blue background */
+    padding: 10px;
+  }
+  
+  /* Footer container */
+  .footer-container {
+    display: flex;
+  
+  }
+  
+  /* Text on the left */
+  .footer-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff; /* Black text */
+    text-align: center ;
+    padding: 20px;
+    flex: 1; /* Do not grow or shrink */
+  }
+  
+  /* Icon container (centered) */
+  .icons {
+    display: flex;
+    gap: 30px; /* Space between icons */
+    justify-content: center; /* Center icons horizontally */
+    flex: 1; /* Allow this section to take remaining space */
+  }
+  
+  /* Icon images */
+  .icon img {
+    width: 50px; /* Adjust size of icons */
+    height: 50px;
+    border-radius: 50%; /* Make images circular */
+    object-fit: cover; /* Ensure images fit well within the circle */
+  
+    padding: 5px; /* Add padding inside the circle */
+  }
