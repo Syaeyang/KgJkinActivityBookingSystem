@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 
 /**
@@ -18,32 +19,37 @@ public class SignUpServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      //retrieve form input
+        // Retrieve form input
         String customerfirstname = request.getParameter("customerfirstname");
         String customerlastname = request.getParameter("customerlastname");
         String customeremail = request.getParameter("customeremail");
         String customerphone = request.getParameter("customerphone");
-        String customerpassword = request.getParameter("customerpassword");
+        String customerpassword = request.getParameter("customerpassword"); // Consider hashing for security
 
-        int customerid=0;
+        int customerid = 0;
 
-        // Validate name: only letters and spaces allowed
+        // Set up writer for messages
+        PrintWriter out = response.getWriter();
+
+        // Validate first name
         if (!customerfirstname.matches("^[A-Za-z\\s]+$")) {
-            out.println("<p style='color:red;'>❌ Name must contain letters only — no numbers or symbols allowed.</p>");
-            return;
-        }
-       if (!customerlastname.matches("^[A-Za-z\\s]+$")) {
-            out.println("<p style='color:red;'>❌ Name must contain letters only — no numbers or symbols allowed.</p>");
+            out.println("<p style='color:red;'>❌ First name must contain letters only — no numbers or symbols allowed.</p>");
             return;
         }
 
-        // Validate phone: only digits
+        // Validate last name
+        if (!customerlastname.matches("^[A-Za-z\\s]+$")) {
+            out.println("<p style='color:red;'>❌ Last name must contain letters only — no numbers or symbols allowed.</p>");
+            return;
+        }
+
+        // Validate phone number
         if (!customerphone.matches("^[0-9]+$")) {
             out.println("<p style='color:red;'>❌ Phone number must contain digits only — letters or symbols are not allowed.</p>");
             return;
         }
 
-        // Validate password strength: min 8 chars, 1 capital letter, 1 digit
+        // Validate password
         if (!customerpassword.matches("^(?=.*[A-Z])(?=.*\\d).{8,}$")) {
             out.println("<p style='color:red;'>❌ Password must be at least 8 characters long, with at least 1 uppercase letter and 1 number.</p>");
             return;
@@ -65,12 +71,20 @@ public class SignUpServlet extends HttpServlet {
             // Check if email already exists
             PreparedStatement checkStmt = con.prepareStatement("SELECT * FROM CUSTOMER WHERE CUSTEMAIL = ?");
             checkStmt.setString(1, customeremail);
-            ResultSet rs = checkStmt.executeQuery();
+            ResultSet emailCheck = checkStmt.executeQuery();
 
-            if (rs.next()) {
+            if (emailCheck.next()) {
                 out.println("<p style='color:red;'>❌ This email is already registered. Please use a different email.</p>");
-            } else {
-                  // Insert SQL query with auto-incremented Customer ID
+                emailCheck.close();
+                checkStmt.close();
+                con.close();
+                return;
+            }
+
+            emailCheck.close();
+            checkStmt.close();
+
+            // Insert SQL query with auto-incremented Customer ID
             String sql = "INSERT INTO CUSTOMER (CUSTFIRSTNAME, CUSTLASTNAME, CUSTEMAIL, CUSTPHONENO, CUSTPASSWORD) " +
                          "OUTPUT INSERTED.CUSTID VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -85,23 +99,21 @@ public class SignUpServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 customerid = rs.getInt(1);
-
-                int i = ps.executeUpdate();
-                if(i > 0) {
-                    out.println("<p style='color:green;'>✅ Registration successful!</p>");
-                } else {
-                    out.println("<p style='color:red;'>❌ Registration failed. Please try again later.</p>");
-                }
-                rs.close();
             }
 
             rs.close();
-            checkStmt.close();
+            ps.close();
             con.close();
 
         } catch (Exception e) {
             e.printStackTrace();
-            out.println("<p style='color:red;'>❌ An error occurred while processing your registration.</p>");
+            response.getWriter().println("Error: " + e.getMessage());
+        }
+
+        if (customerid > 0) {
+            response.sendRedirect("CustomerProfile.jsp?id=" + customerid);
+        } else {
+            response.getWriter().println("Error: Unable to create the account.");
         }
     }
 }
