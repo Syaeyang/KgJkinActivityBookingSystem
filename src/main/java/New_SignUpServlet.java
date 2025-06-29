@@ -53,6 +53,11 @@ public class SignUpServlet extends HttpServlet {
         if (!customerpassword.matches("^(?=.*[A-Z])(?=.*\\d).{8,}$")) {
             out.println("<p style='color:red;'>❌ Password must be at least 8 characters long, with at least 1 uppercase letter and 1 number.</p>");
             return;
+
+            // Validate email format
+        if (!customeremail.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
+            out.println("<p style='color:red;'>❌ Please enter a valid email address (e.g., example@domain.com).</p>");
+            return;
         }
 
         try {
