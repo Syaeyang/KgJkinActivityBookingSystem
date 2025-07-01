@@ -91,6 +91,29 @@ body {
     transform: scale(1.05);
 }
 
+/* Delete Button */
+.delete-button {
+    display: block;
+    width: 150px;
+    text-align: center;
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    bottom: 15px;
+    right: 180px; /* Positioned left of update button */
+    transition: transform 0.2s ease-in-out;
+}
+
+.delete-button:hover {
+    transform: scale(1.05);
+}
+
 /* Footer Styling */
 .footer {
     background-color: #007BFF;
