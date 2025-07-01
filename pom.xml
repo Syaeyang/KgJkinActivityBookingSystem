@@ -16,7 +16,7 @@
       <version>6.0.0</version>
       <scope>provided</scope>
     </dependency>
-
+    
     <!-- Microsoft SQL Server JDBC Driver -->
     <dependency>
       <groupId>com.microsoft.sqlserver</groupId>
@@ -31,6 +31,8 @@
       <version>31.1-jre</version>
     </dependency>
   </dependencies>
+  
+  
 
   <build>
     <plugins>
