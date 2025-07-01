@@ -61,7 +61,7 @@ try {
         <!-- Sign Up Section -->
         <div class="section">
             <div class="form">
-                <form action="SignUpCrewServlet" method="post">
+                <form action="New_SignUpCrewServlet" method="post"> //link to the new file
                     <label for="crewfirstname">First Name</label>
                     <input type="text" id="crewfirstname" name="crewfirstname" placeholder="Enter your first name" required>
 
