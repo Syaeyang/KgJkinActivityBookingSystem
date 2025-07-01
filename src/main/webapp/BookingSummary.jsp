@@ -15,9 +15,9 @@
         </div>
         <nav class="nav-menu">
             <ul>
-                 <li><a href="HomeCust.jsp">HOME</a></li>
-          <li><a href="ListPackage.jsp">PACKAGE</a></li>
-          <li><a href="BookingSummary.jsp">BOOKING</a></li>
+                <li><a href="HomeCust.jsp">HOME</a></li>
+                <li><a href="ListPackage.jsp">PACKAGE</a></li>
+                <li><a href="BookingSummary.jsp">BOOKING</a></li>
             </ul>
         </nav>
     </header>
@@ -27,10 +27,7 @@
         <% 
             Connection con = null;
             try {
-                // Load SQL Server JDBC Driver
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
-                // Establish connection
                 String url = "jdbc:sqlserver://kgjkinserver.database.windows.net:1433;"
                            + "database=kgJkinDB;"
                            + "user=kgjkinadmin@kgjkinserver;"
@@ -41,23 +38,27 @@
                            + "loginTimeout=30;";
                 con = DriverManager.getConnection(url);
 
-                // SQL Query
                 String query = "SELECT BOOKINGID, BOOKINGDATE, BOOKINGADULTS, BOOKINGCHILDREN, BOOKINGSTATUS, PACKAGEID, SLOTID FROM BOOKING";
                 PreparedStatement ps = con.prepareStatement(query);
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
         %>
-                    <div class="booking-details">
-                        <p><strong>Booking ID:</strong> <%= rs.getInt("BOOKINGID") %></p>
-                        <p><strong>Date:</strong> <%= rs.getString("BOOKINGDATE") %></p>
-                        <p><strong>Adults:</strong> <%= rs.getInt("BOOKINGADULTS") %></p>
-                        <p><strong>Children:</strong> <%= rs.getInt("BOOKINGCHILDREN") %></p>
-                        <p><strong>Status:</strong> <%= rs.getString("BOOKINGSTATUS") %></p>
-                        <p><strong>Package ID:</strong> <%= rs.getInt("PACKAGEID") %></p>
-                        <p><strong>Slot ID:</strong> <%= rs.getInt("SLOTID") %></p>
-                        <a href="UpdateBooking.jsp?bookingid=<%= rs.getInt("BOOKINGID") %>" class="update-button">UPDATE</a>
-                    </div>
+            <div class="booking-details">
+                <p><strong>Booking ID:</strong> <%= rs.getInt("BOOKINGID") %></p>
+                <p><strong>Date:</strong> <%= rs.getString("BOOKINGDATE") %></p>
+                <p><strong>Adults:</strong> <%= rs.getInt("BOOKINGADULTS") %></p>
+                <p><strong>Children:</strong> <%= rs.getInt("BOOKINGCHILDREN") %></p>
+                <p><strong>Status:</strong> <%= rs.getString("BOOKINGSTATUS") %></p>
+                <p><strong>Package ID:</strong> <%= rs.getInt("PACKAGEID") %></p>
+                <p><strong>Slot ID:</strong> <%= rs.getInt("SLOTID") %></p>
+                <a href="UpdateBooking.jsp?bookingid=<%= rs.getInt("BOOKINGID") %>" class="update-button">UPDATE</a>
+                <a href="DeleteBooking.jsp?bookingid=<%= rs.getInt("BOOKINGID") %>" 
+                   class="delete-button" 
+                   onclick="return confirm('Are you sure you want to delete this booking?');">
+                   DELETE
+                </a>
+            </div>
         <% 
                 }
                 rs.close();
