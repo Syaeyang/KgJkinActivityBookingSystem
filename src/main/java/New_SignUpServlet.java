@@ -9,14 +9,15 @@ import java.sql.*;
 
 /**
  * Servlet implementation class SignUpServlet
- */
-@WebServlet("/SignUpServlet") // Added WebServlet annotation
-public class SignUpServlet extends HttpServlet {
+*/
+@WebServlet("/New_SignUpServlet") // Added WebServlet annotation
+public class New_SignUpServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public SignUpServlet() {
+    public New_SignUpServlet() {
         super();
-    }
+        }       
+  
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form input
@@ -53,8 +54,9 @@ public class SignUpServlet extends HttpServlet {
         if (!customerpassword.matches("^(?=.*[A-Z])(?=.*\\d).{8,}$")) {
             out.println("<p style='color:red;'>❌ Password must be at least 8 characters long, with at least 1 uppercase letter and 1 number.</p>");
             return;
+        }
 
-            // Validate email format
+        // Validate email format
         if (!customeremail.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
             out.println("<p style='color:red;'>❌ Please enter a valid email address (e.g., example@domain.com).</p>");
             return;
@@ -114,6 +116,8 @@ public class SignUpServlet extends HttpServlet {
             e.printStackTrace();
             response.getWriter().println("Error: " + e.getMessage());
         }
+        // Check if customer ID was successfully created
+       // Redirect to CustomerProfile.jsp with the new customer ID  
 
         if (customerid > 0) {
             response.sendRedirect("CustomerProfile.jsp?id=" + customerid);
@@ -121,4 +125,4 @@ public class SignUpServlet extends HttpServlet {
             response.getWriter().println("Error: Unable to create the account.");
         }
     }
-}
+} 
