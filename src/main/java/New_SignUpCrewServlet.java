@@ -10,11 +10,11 @@ import java.sql.*;
 /**
  * Servlet implementation class SignUpServlet
  */
-@WebServlet("/SignUpServlet") // Added WebServlet annotation
-public class SignUpServlet extends HttpServlet {
+@WebServlet("/New_SignUpCrewServlet") // Added WebServlet annotation
+public class New_SignUpCrewServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public SignUpCrewServlet() {
+    public New_SignUpCrewServlet() {
         super();
     }
 
@@ -53,8 +53,9 @@ public class SignUpServlet extends HttpServlet {
         if (!crewpassword.matches("^(?=.*[A-Z])(?=.*\\d).{8,}$")) {
             out.println("<p style='color:red;'>❌ Password must be at least 8 characters long, with at least 1 uppercase letter and 1 number.</p>");
             return;
+        }
 
-            // Validate email format
+        // Validate email format
         if (!crewemail.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
             out.println("<p style='color:red;'>❌ Please enter a valid email address (e.g., example@domain.com).</p>");
             return;
@@ -122,4 +123,5 @@ public class SignUpServlet extends HttpServlet {
             response.getWriter().println("Error: Unable to create the account.");
         }
     }
+
 }
